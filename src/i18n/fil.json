@@ -1,0 +1,59 @@
+{
+  "menu": {
+    "category": "Kategorya",
+    "detail": "Tingnan ang detalye",
+    "add": "IDAGDAG",
+    "note": "Tala ng ulam (para sa shop)"
+  },
+  "contact": {
+    "sendOrder": "Makipag-ugnayan para mag-order",
+    "supportInfo": "IMPORMASYON NG SUPORTA"
+  },
+  "search": {
+    "placeholder": "Maghanap ng pagkain..."
+  },
+  "filter": {
+    "all": "Lahat",
+    "asc": "Pataas ang presyo",
+    "desc": "Pababa ang presyo",
+    "changeLang": "Palitan ang wika"
+  },
+  "empty": {
+    "menu": "Walang tumutugmang pagkain"
+  },
+  "cart": {
+    "title": "ORDER",
+    "quantity": "Dami",
+    "total": "Kabuuan",
+    "phone": "Numero ng telepono (o Telegram)",
+    "phonePlaceholder": "Ilagay ang telepono / Telegram",
+    "address": "Address ng delivery",
+    "addressPlaceholder": "Ilagay ang address",
+    "time": "Oras ng pagtanggap",
+    "timePlaceholder": "Hal: 18:30",
+    "note": "Karagdagang tala para sa shop",
+    "notePlaceholder": "Tala (konting anghang, ihatid bago 7pm…)",
+    "finish": "TAPUSIN",
+    "back": "BUMALIK"
+  },
+  "export": {
+    "title": "NILALAMAN NG ORDER",
+    "copy": "Kopyahin ang order",
+    "copied": "Nakopya na",
+    "send": "Ipadala ang order sa"
+  },
+  "mobile": {
+    "category": "Kategorya",
+    "contact": "Makipag-ugnayan",
+    "cart": "Cart",
+    "send": "Ipadala"
+  },
+  "modal": {
+    "chooseLang": "PUMILI NG WIKA",
+    "loading": "Naglo-load ng menu…",
+    "chooseCategory": "PUMILI NG KATEGORYA"
+  },
+  "common": {
+    "scrollTop": "Bumalik sa itaas"
+  }
+}

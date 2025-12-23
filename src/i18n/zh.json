@@ -1,0 +1,59 @@
+{
+  "menu": {
+    "category": "分类",
+    "detail": "查看详情",
+    "add": "添加",
+    "note": "菜品备注（给商家）"
+  },
+  "contact": {
+    "sendOrder": "联系商家下单",
+    "supportInfo": "支持信息"
+  },
+  "search": {
+    "placeholder": "搜索菜品..."
+  },
+  "filter": {
+    "all": "全部",
+    "asc": "价格升序",
+    "desc": "价格降序",
+    "changeLang": "切换语言"
+  },
+  "empty": {
+    "menu": "没有找到符合的菜品"
+  },
+  "cart": {
+    "title": "订单",
+    "quantity": "数量",
+    "total": "总计",
+    "phone": "电话号码（或 Telegram）",
+    "phonePlaceholder": "输入电话号码 / Telegram",
+    "address": "送货地址",
+    "addressPlaceholder": "输入送货地址",
+    "time": "收货时间",
+    "timePlaceholder": "例如：18:30",
+    "note": "给商家的备注",
+    "notePlaceholder": "备注（少辣，7点前送达…）",
+    "finish": "完成",
+    "back": "返回"
+  },
+  "export": {
+    "title": "订单内容",
+    "copy": "复制订单",
+    "copied": "已复制",
+    "send": "发送订单到"
+  },
+  "mobile": {
+    "category": "分类",
+    "contact": "联系",
+    "cart": "购物车",
+    "send": "发送订单"
+  },
+  "modal": {
+    "chooseLang": "选择语言",
+    "loading": "正在加载菜单…",
+    "chooseCategory": "选择分类"
+  },
+  "common": {
+    "scrollTop": "返回顶部"
+  }
+}

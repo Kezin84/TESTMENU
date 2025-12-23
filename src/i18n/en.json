@@ -1,0 +1,59 @@
+{
+  "menu": {
+    "category": "Category",
+    "detail": "View detail",
+    "add": "ADD",
+    "note": "Dish note (for shop)"
+  },
+  "contact": {
+    "sendOrder": "Contact to send order",
+    "supportInfo": "SUPPORT INFORMATION"
+  },
+  "search": {
+    "placeholder": "Search food..."
+  },
+  "filter": {
+    "all": "All",
+    "asc": "Price ascending",
+    "desc": "Price descending",
+    "changeLang": "Change language"
+  },
+  "empty": {
+    "menu": "No matching items found"
+  },
+  "cart": {
+    "title": "ORDER",
+    "quantity": "Quantity",
+    "total": "Total",
+    "phone": "Phone number (or Telegram if no phone)",
+    "phonePlaceholder": "Enter phone / Telegram",
+    "address": "Delivery address",
+    "addressPlaceholder": "Enter delivery address",
+    "time": "Delivery time",
+    "timePlaceholder": "Ex: 18:30",
+    "note": "Additional note for shop",
+    "notePlaceholder": "Note for shop (less spicy, deliver before 7pm...)",
+    "finish": "FINISH",
+    "back": "BACK"
+  },
+  "export": {
+    "title": "ORDER CONTENT",
+    "copy": "Copy order",
+    "copied": "Copied",
+    "send": "Send order via"
+  },
+  "mobile": {
+    "category": "Category",
+    "contact": "Contact",
+    "cart": "Cart",
+    "send": "Send order"
+  },
+  "modal": {
+    "chooseLang": "CHOOSE YOUR LANGUAGE",
+    "loading": "Loading menu…",
+    "chooseCategory": "CHOOSE CATEGORY"
+  },
+  "common": {
+    "scrollTop": "Scroll to top"
+  }
+}

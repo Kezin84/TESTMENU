@@ -1,0 +1,59 @@
+{
+  "menu": {
+    "category": "Danh mục",
+    "detail": "Xem chi tiết",
+    "add": "THÊM",
+    "note": "Ghi chú món (cho quán)"
+  },
+  "contact": {
+    "sendOrder": "Liên hệ gửi đơn",
+    "supportInfo": "THÔNG TIN HỖ TRỢ"
+  },
+  "search": {
+    "placeholder": "Tìm món ...."
+  },
+  "filter": {
+    "all": "Tất cả",
+    "asc": "Giá tăng dần",
+    "desc": "Giá giảm dần",
+    "changeLang": "Đổi ngôn ngữ"
+  },
+  "empty": {
+    "menu": "Không có món phù hợp với từ khóa"
+  },
+  "cart": {
+    "title": "ĐƠN HÀNG",
+    "quantity": "Số lượng",
+    "total": "Tổng cộng",
+    "phone": "Số điện thoại ( hoặc tele nếu không có sdt)",
+    "phonePlaceholder": "Nhập số điện thoại / tele",
+    "address": "Địa chỉ giao hàng",
+    "addressPlaceholder": "Nhập địa chỉ giao hàng",
+    "time": "Thời gian nhận",
+    "timePlaceholder": "VD: 18h30",
+    "note": "Ghi chú thêm cho quán",
+    "notePlaceholder": "Ghi chú cho quán (ít cay, giao trước 7h...)",
+    "finish": "HOÀN THÀNH",
+    "back": "QUAY LẠI"
+  },
+  "export": {
+    "title": "NỘI DUNG ĐƠN HÀNG",
+    "copy": "Copy đơn hàng",
+    "copied": "Đã copy",
+    "send": "Gửi đơn qua"
+  },
+  "mobile": {
+    "category": "Danh mục",
+    "contact": "Liên hệ",
+    "cart": "Giỏ hàng",
+    "send": "Gửi đơn"
+  },
+  "modal": {
+    "chooseLang": "CHOOSE YOUR LANGUAGE",
+    "loading": "Loading menu…",
+    "chooseCategory": "CHỌN DANH MỤC"
+  },
+  "common": {
+    "scrollTop": "Lên đầu trang"
+  }
+}
