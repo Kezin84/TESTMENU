@@ -148,13 +148,7 @@
       <!-- BANNER CAROUSEL -->
      <!-- BANNER CAROUSEL -->
 <div v-if="bannerList.length > 0" class="banner">
-  <transition name="banner-fade" mode="out-in">
-    <img
-      :key="bannerKey"
-      :src="bannerList[currentBannerIndex].URL"
-      alt="banner"
-    />
-  </transition>
+  <img :src="bannerList[currentBannerIndex].URL" />
 
   <!-- NÚT PREV -->
   <button
@@ -717,9 +711,8 @@
 </aside>
 
   </div>
-  <button
+    <button
     class="scroll-top-fab"
-    v-show="showScrollTop"
     :title="$t('common.scrollTop')"
     @click="scrollToTop"
   >
@@ -1258,9 +1251,6 @@ const cartListRef = ref(null)
 const params = new URLSearchParams(location.search)
 const maNCC = params.get('ncc')
 let bannerTimer = null
-const BANNER_INTERVAL = 4500
-const MENU_TOP_THRESHOLD = 20
-const SCROLL_TOP_THRESHOLD = 30
 const tempQty = ref({})
 /* ===== STATE ===== */
 const menu = ref([])
@@ -1384,12 +1374,6 @@ onMounted(() => {
   } else {
     showCart.value = true    // desktop → bật
   }
-
-  nextTick(() => {
-    if (!mainRef.value) return
-    mainRef.value.addEventListener('scroll', updateScrollTopVisibility)
-    updateScrollTopVisibility()
-  })
 })
 
 watch(isMobile, (val) => {
@@ -1453,9 +1437,6 @@ const pageSize = 16
 const showCategories = ref(true)
 const showCart = ref(false)
 const currentBannerIndex = ref(0)
-const bannerKey = ref(0)
-const mainRef = ref(null)
-const showScrollTop = ref(false)
 
 /* ===== LOAD ===== */
 onMounted(async () => {
@@ -1484,7 +1465,14 @@ menu.value = (json.data.hang_hoa || []).filter(
   footers.value = json.data.footer || []
 
 
-  scheduleBannerAuto()
+ startBannerAuto()
+  // Auto-rotate banners
+  if (bannerList.value.length > 1) {
+    setInterval(() => {
+      currentBannerIndex.value = 
+        (currentBannerIndex.value + 1) % bannerList.value.length
+    }, 3000)
+  }
   khuyenMaiInfo.value = (json.data.khuyenmai_info || []).filter(
   (k) => k.Ma_nha_cung_cap === maNCC
 )
@@ -1697,12 +1685,6 @@ const bannerList = computed(() =>
     })
 )
 
-watch(bannerList, (list) => {
-  currentBannerIndex.value = 0
-  bannerKey.value = 0
-  scheduleBannerAuto()
-})
-
 
 const logo = computed(() =>
   logos.value.find((l) => l.Ma_nha_cung_cap === maNCC)
@@ -1793,30 +1775,21 @@ function formatPrice(value, currency) {
   return currency ? `${price} ${currency}` : price
 }
 
+function startBannerAuto() {
+  stopBannerAuto()
+
+  if (bannerList.value.length <= 1) return
+
+  bannerTimer = setInterval(() => {
+    nextBanner()
+  }, 3000)
+}
+
 function stopBannerAuto() {
   if (bannerTimer) {
-    clearTimeout(bannerTimer)
+    clearInterval(bannerTimer)
     bannerTimer = null
   }
-}
-
-function scheduleBannerAuto() {
-  stopBannerAuto()
-  if (bannerList.value.length <= 1) return
-  bannerTimer = setTimeout(() => {
-    advanceBanner(1)
-  }, BANNER_INTERVAL)
-}
-
-function advanceBanner(direction = 1) {
-  if (!bannerList.value.length) return
-
-  const total = bannerList.value.length
-  currentBannerIndex.value =
-    (currentBannerIndex.value + direction + total) % total
-  bannerKey.value += 1 // force transition key
-
-  scheduleBannerAuto()
 }
 function getStatusKey(raw) {
   if (!raw) return ''
@@ -1845,11 +1818,16 @@ function selectAddress(place) {
 }
 
 function nextBanner() {
-  advanceBanner(1)
+  currentBannerIndex.value =
+    (currentBannerIndex.value + 1) % bannerList.value.length
+  startBannerAuto() // reset timer khi user bấm
 }
 
 function prevBanner() {
-  advanceBanner(-1)
+  currentBannerIndex.value =
+    (currentBannerIndex.value - 1 + bannerList.value.length) %
+    bannerList.value.length
+  startBannerAuto()
 }
 function incTemp(m) {
   tempQty.value[m.Ma_hang]++
@@ -2106,16 +2084,6 @@ function openLangModal() {
   showLangModal.value = true
 }
 
-function updateScrollTopVisibility() {
-  if (!mainRef.value || !menuRef.value) {
-    showScrollTop.value = false
-    return
-  }
-
-  const menuTop = menuRef.value.getBoundingClientRect().top
-  showScrollTop.value = menuTop < MENU_TOP_THRESHOLD
-}
-
 const canFinish = computed(() => {
   return (
     diaChi.value.trim() ||
@@ -2247,13 +2215,6 @@ watch(
   },
   { immediate: true } // 🔥 BẮT BUỘC
 )
-
-onUnmounted(() => {
-  stopBannerAuto()
-  if (mainRef.value) {
-    mainRef.value.removeEventListener('scroll', updateScrollTopVisibility)
-  }
-})
 function addFromDetailSidebar() {
   if (!selectedItem.value) return
 
@@ -2400,7 +2361,7 @@ const hasSale = computed(() =>
   position: sticky;
   top: 0;
   height: 100vh;
-  overflow: hidden; /* keep sidebar static; main handles scrolling */
+  overflow-y: auto;
   z-index: 20;
 
   box-shadow: 
@@ -2544,30 +2505,6 @@ const hasSale = computed(() =>
   -ms-overflow-style: none;
 }
 
-/* ===== MAIN SCROLLBAR (SLIM, THEME MATCH) ===== */
-.main::-webkit-scrollbar {
-  width: 8px;
-}
-
-.main::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.main::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #22c55e, #16a34a);
-  border-radius: 999px;
-  border: 2px solid rgba(14, 23, 41, 0.9); /* blend with main bg */
-}
-
-.main::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #16a34a, #15803d);
-}
-
-.main {
-  scrollbar-width: thin;                    /* Firefox */
-  scrollbar-color: #22c55e rgba(14, 23, 41, 0); /* thumb | track */
-}
-
 .main::after {
   content: '';
   position: sticky;
@@ -2631,16 +2568,6 @@ border-radius: inherit; /* 👈 bo theo cha */
   box-shadow: 0 0 24px rgba(168, 250, 168, 0.45);
 }
 
-/* Smooth fade for banner transition (desktop + mobile) */
-.banner-fade-enter-active,
-.banner-fade-leave-active {
-  transition: opacity 0.45s ease;
-}
-
-.banner-fade-enter-from,
-.banner-fade-leave-to {
-  opacity: 0;
-}
 
 
 .search input {
@@ -2875,7 +2802,7 @@ transition: background 0.2s ease, transform 0.1s ease;
   position: sticky;
   top: 0; /* 👈 dính */
   height: 100vh;
-  overflow: hidden; /* keep sidebar static; main handles scrolling */
+  overflow-y: auto;
   transition: width 0.3s;
   z-index: 20;
    font-size: 13px;
@@ -4033,7 +3960,6 @@ font-size: 11px;
   background: #fef08a;
 }
 /* KHUNG THÔNG BÁO */
-/* KHUNG THÔNG BÁO */
 .notice {
   overflow: hidden;        /* ❗ bắt buộc */
   white-space: nowrap;
@@ -4053,7 +3979,6 @@ font-size: 11px;
   will-change: transform;
  animation-delay: -10s; /* 🔥 CHẠY NGAY */
   animation: notice-move 12s linear infinite;
-  
 }
 
 /* CHẠY NGAY LẬP TỨC */
@@ -4176,10 +4101,10 @@ font-size: 11px;
 .notice-text {
   font-size: 14px;
   font-weight: 600;
-  color: #00ff40;
-  
+  color: #ecfdf5;
+
   text-shadow:
-    0 0 8px rgba(0, 255, 64, 0.3);
+    0 1px 3px rgba(0,0,0,0.45);
 
   animation: notice-move 12s linear infinite;
 }
@@ -4207,6 +4132,7 @@ font-size: 11px;
     transform: translateX(-100%);
   }
 }
+
 /* ===== CONTACT ICON – RUNG + TỎA LIÊN TỤC ===== */
 .contact-icon-wrap {
   position: relative;
@@ -4833,16 +4759,6 @@ font-size: 11px;
 
   box-shadow: 0 0 24px rgba(168, 250, 168, 0.45);
 
-}
-
-.banner-fade-enter-active,
-.banner-fade-leave-active {
-  transition: opacity 0.35s ease;
-}
-
-.banner-fade-enter-from,
-.banner-fade-leave-to {
-  opacity: 0.05;
 }
 
 /* 🔥 DÒNG QUAN TRỌNG NHẤT */
@@ -6777,4 +6693,3 @@ box-shadow: 0 4px 10px rgba(239, 243, 16, 0.45);
 
 
 </style>
-
